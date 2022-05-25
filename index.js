@@ -22,7 +22,7 @@ async function run() {
 
     try {
         await client.connect();
-        const toolsCollection = client.db('final_project').collection('tools')
+        const toolsCollection = client.db('final_project').collection('tools');
 
 
         app.get('/tools', async (req, res) => {
@@ -53,7 +53,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello from final project')
+    res.send('Hello from final project and here')
 })
 
 app.listen(port, () => {
