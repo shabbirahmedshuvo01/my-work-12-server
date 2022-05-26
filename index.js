@@ -40,11 +40,35 @@ async function run() {
             res.send(tools);
         });
 
+        // app.get('/available', async (req, res) => {
+        //     const date = req.query.date || '2022-5-26'
+        //     const tools = await toolsCollection.find().toArray();
+        //     const query = { date: date };
+        //     const orders = await ordersCollection.find(query).toArray();
+        //     orders.forEach(tool => {
+        //         const toolsOrder = orders.filter(order => order.quantity === tool.quantity)
+        //     })
+        //     res.send(orders);
+        // })
+
+        app.get('/order', async (req, res) => {
+            const toolBuyer = req.query.toolBuyer;
+            const query = { toolBuyer: toolBuyer };
+            const orders = await ordersCollection.find(query).toArray();
+            res.send(orders);
+        })
+
+
+
         app.post('/order', async (req, res) => {
             const order = req.body;
-            const query = { tools: order.toolName }
+            const query = { toolName: order.toolName, buyerName: order.buyerName, date: order.date }
+            const exists = await ordersCollection.findOne(query);
+            if (exists) {
+                return res.send({ success: false, order: exists })
+            }
             const result = await ordersCollection.insertOne(order);
-            res.send(result);
+            return res.send({ success: true, result });
         })
 
     }
