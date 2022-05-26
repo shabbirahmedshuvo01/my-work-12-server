@@ -113,16 +113,16 @@ async function run() {
             res.send(tools);
         });
 
-        // app.get('/available', async (req, res) => {
-        //     const date = req.query.date || '2022-5-26'
-        //     const tools = await toolsCollection.find().toArray();
-        //     const query = { date: date };
-        //     const orders = await ordersCollection.find(query).toArray();
-        //     orders.forEach(tool => {
-        //         const toolsOrder = orders.filter(order => order.quantity === tool.quantity)
-        //     })
-        //     res.send(orders);
-        // })
+        /* app.get('/available', async (req, res) => {
+            const date = req.query.date || '2022-5-26'
+            const tools = await toolsCollection.find().toArray();
+            const query = { date: date };
+            const orders = await ordersCollection.find(query).toArray();
+            orders.forEach(tool => {
+                const toolsOrder = orders.filter(order => order.quantity === tool.quantity)
+            })
+            res.send(orders);
+        }) */
 
         app.get('/order', async (req, res) => {
             const toolBuyer = req.query.toolBuyer;
