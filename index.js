@@ -24,6 +24,7 @@ async function run() {
         await client.connect();
         const toolsCollection = client.db('final_project').collection('tools');
         const ordersCollection = client.db('final_project').collection('orders');
+        const usersCollection = client.db('final_project').collection('users');
 
 
         app.get('/tools', async (req, res) => {
@@ -32,6 +33,25 @@ async function run() {
             const tools = await cursor.toArray();
             res.send(tools);
         });
+
+
+
+
+        app.put('/user/:email', async (req, res) => {
+            const email = req.params.email;
+            const user = req.body;
+            const filter = { email: email };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: user,
+            };
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
+            res.send(result)
+        })
+
+
+
+
 
         app.get('/tools/:id', async (req, res) => {
             const id = req.params.id;
