@@ -118,6 +118,13 @@ async function run() {
         })
 
 
+        app.get('/order/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const orders = await ordersCollection.findOne(query);
+            res.send(orders);
+        })
+
 
         app.post('/order', async (req, res) => {
             const order = req.body;
