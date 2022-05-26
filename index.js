@@ -115,6 +115,14 @@ async function run() {
             return res.send({ success: true, result });
         })
 
+
+        app.delete('/order/:toolId', async (req, res) => {
+            const toolId = req.params.toolId;
+            const query = { toolId: toolId }
+            const result = await ordersCollection.deleteOne(query);
+            res.send(result);
+        })
+
     }
     finally {
 
