@@ -62,8 +62,18 @@ async function run() {
         app.get('/users', async (req, res) => {
             const users = await usersCollection.find().toArray()
             res.send(users);
-        })
+        });
 
+
+        app.put('/user/admin/:email', async (req, res) => {
+            const email = req.params.email;
+            const filter = { email: email };
+            const updateDoc = {
+                $set: { role: 'admin' },
+            };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.send(result)
+        })
 
 
         app.put('/user/:email', async (req, res) => {
@@ -78,7 +88,6 @@ async function run() {
             const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '8h' })
             res.send({ result, token })
         })
-
 
 
 
