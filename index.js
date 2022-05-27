@@ -59,6 +59,13 @@ async function run() {
         });
 
 
+        app.post('/tools', async (req, res) => {
+            const newTool = req.body;
+            const result = await toolsCollection.insertOne(newTool);
+            res.send(result)
+        })
+
+
         app.post('/create-payment-intent', async (req, res) => {
             const tools = req.body;
             const price = tools.price;
